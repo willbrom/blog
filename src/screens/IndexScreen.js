@@ -4,7 +4,7 @@ import BlogContext from "../contex/BlogContext";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
 const IndexScreen = () => {
-  const { data, onAddBlogPost } = useContext(BlogContext);
+  const { data, addBlogPost } = useContext(BlogContext);
 
   return (
     <View style={styles.containerStyle}>
@@ -20,7 +20,7 @@ const IndexScreen = () => {
           );
         }}
       />
-      <Button title="Add Blog" onPress={() => onAddBlogPost()} />
+      <Button title="Add Blog" onPress={() => addBlogPost()} />
     </View>
   );
 };
