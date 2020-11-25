@@ -1,26 +1,38 @@
 import React, { useContext } from "react";
-import { View, Text, Button, FlatList, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import BlogContext from "../contex/BlogContext";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
-const IndexScreen = () => {
-  const { data, addBlogPost } = useContext(BlogContext);
+const IndexScreen = ({ navigation }) => {
+  const { data } = useContext(BlogContext);
 
   return (
     <View style={styles.containerStyle}>
       <FlatList
-        keyExtractor={({ title }) => title}
+        keyExtractor={({ id }) => id}
         data={data}
-        renderItem={({ item: { title } }) => {
+        renderItem={({ item: { id, title, content } }) => {
           return (
-            <View style={styles.itemStyle}>
+            <TouchableOpacity
+              style={styles.itemStyle}
+              onPress={() =>
+                navigation.navigate("Show", { id, title, content })
+              }
+            >
               <Text style={styles.titleStyle}>{title}</Text>
               <AntDesign style={styles.iconStyle} name="arrowright" size={25} />
-            </View>
+            </TouchableOpacity>
           );
         }}
       />
-      <Button title="Add Blog" onPress={() => addBlogPost()} />
+      <Button title="Add Blog" onPress={() => navigation.navigate("Create")} />
     </View>
   );
 };
