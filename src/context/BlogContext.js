@@ -12,29 +12,22 @@ const Reducer = (state, action) => {
     case "edit":
       return state.map((v) => (v.id == action.payload.id ? action.payload : v));
     default:
-      break;
+      return state;
   }
 };
 
 export const BlogProvider = ({ children }) => {
   const [state, dispatch] = useReducer(Reducer, []);
 
-  const addBlogPost = (title, content) => {
+  const changeBlogPosts = (type, { id, title, content }) => {
     dispatch({
-      type: "add",
-      payload: { id: state.length.toString(), title, content },
-    });
-  };
-
-  const editBlogPost = (id, title, content) => {
-    dispatch({
-      type: "edit",
+      type: type,
       payload: { id, title, content },
     });
   };
 
   return (
-    <BlogContext.Provider value={{ data: state, addBlogPost, editBlogPost }}>
+    <BlogContext.Provider value={{ data: state, changeBlogPosts }}>
       {children}
     </BlogContext.Provider>
   );

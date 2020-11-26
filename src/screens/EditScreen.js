@@ -6,7 +6,7 @@ import BlogContext from "../context/BlogContext";
 const EditScreen = ({ navigation }) => {
   const [title, setTitle] = useState(navigation.getParam("title"));
   const [content, setContent] = useState(navigation.getParam("content"));
-  const { editBlogPost } = useContext(BlogContext);
+  const { changeBlogPosts } = useContext(BlogContext);
   const id = navigation.getParam("id");
 
   return (
@@ -16,7 +16,7 @@ const EditScreen = ({ navigation }) => {
       <Button
         title="Save"
         onPress={() => {
-          editBlogPost(id, title, content);
+          changeBlogPosts("edit", { id, title, content });
           navigation.popToTop();
         }}
       />

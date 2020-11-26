@@ -6,13 +6,18 @@ import BlogContext from "../context/BlogContext";
 const CreateScreen = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const { addBlogPost } = useContext(BlogContext);
+  const { data, changeBlogPosts } = useContext(BlogContext);
 
   return (
     <View style={styles.containerStyle}>
       <BlogInput title="Title" value={title} setValue={setTitle} />
       <BlogInput title="Content" value={content} setValue={setContent} />
-      <Button title="Save" onPress={() => addBlogPost(title, content)} />
+      <Button
+        title="Save"
+        onPress={() =>
+          changeBlogPosts("add", { id: data.length.toString(), title, content })
+        }
+      />
     </View>
   );
 };
