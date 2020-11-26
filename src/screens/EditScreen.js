@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { View, Button, StyleSheet } from "react-native";
 import BlogInput from "../components/BlogInput";
-import BlogContext from "../contex/BlogContext";
+import BlogContext from "../context/BlogContext";
 
 const EditScreen = ({ navigation }) => {
   const [title, setTitle] = useState(navigation.getParam("title"));

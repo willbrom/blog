@@ -7,7 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import BlogContext from "../contex/BlogContext";
+import BlogContext from "../context/BlogContext";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
 const IndexScreen = ({ navigation }) => {
