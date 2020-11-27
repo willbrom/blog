@@ -1,12 +1,12 @@
 import React, { useState, useContext } from "react";
 import { View, Button, StyleSheet } from "react-native";
 import BlogInput from "../components/BlogInput";
-import BlogContext from "../context/BlogContext";
+import { Context as BlogContext } from "../context/BlogContext";
 
-const CreateScreen = () => {
+const CreateScreen = ({ navigation }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const { data, changeBlogPosts } = useContext(BlogContext);
+  const { state, addBlogPost } = useContext(BlogContext);
 
   return (
     <View style={styles.containerStyle}>
@@ -14,9 +14,14 @@ const CreateScreen = () => {
       <BlogInput title="Content" value={content} setValue={setContent} />
       <Button
         title="Save"
-        onPress={() =>
-          changeBlogPosts("add", { id: data.length.toString(), title, content })
-        }
+        onPress={() => {
+          addBlogPost({
+            id: state.length.toString(),
+            title,
+            content,
+          });
+          navigation.popToTop();
+        }}
       />
     </View>
   );
