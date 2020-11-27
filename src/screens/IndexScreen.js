@@ -7,17 +7,17 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import BlogContext from "../context/BlogContext";
+import { Context as BlogContext } from "../context/BlogContext";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
 const IndexScreen = ({ navigation }) => {
-  const { data } = useContext(BlogContext);
+  const { state, deleteBlogPost } = useContext(BlogContext);
 
   return (
     <View style={styles.containerStyle}>
       <FlatList
         keyExtractor={({ id }) => id}
-        data={data}
+        data={state}
         renderItem={({ item: { id, title, content } }) => {
           return (
             <TouchableOpacity
@@ -27,7 +27,12 @@ const IndexScreen = ({ navigation }) => {
               }
             >
               <Text style={styles.titleStyle}>{title}</Text>
-              <AntDesign style={styles.iconStyle} name="arrowright" size={25} />
+              <AntDesign
+                style={styles.iconStyle}
+                name="delete"
+                size={25}
+                onPress={() => deleteBlogPost(id)}
+              />
             </TouchableOpacity>
           );
         }}
