@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Context as BlogContext } from "../context/BlogContext";
-import AntDesign from "@expo/vector-icons/AntDesign";
+import { Feather } from "@expo/vector-icons";
 
 const IndexScreen = ({ navigation }) => {
   const { state, deleteBlogPost } = useContext(BlogContext);
@@ -27,9 +27,9 @@ const IndexScreen = ({ navigation }) => {
               }
             >
               <Text style={styles.titleStyle}>{title}</Text>
-              <AntDesign
+              <Feather
                 style={styles.iconStyle}
-                name="delete"
+                name="trash"
                 size={25}
                 onPress={() => deleteBlogPost(id)}
               />
@@ -43,9 +43,7 @@ const IndexScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  containerStyle: {
-    flex: 1,
-  },
+  containerStyle: {},
   itemStyle: {
     height: 50,
     marginTop: 4,
