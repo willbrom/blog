@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Feather } from "@expo/vector-icons";
 
 const ShowScreen = ({ navigation }) => {
   const id = navigation.getParam("id");
@@ -10,12 +11,20 @@ const ShowScreen = ({ navigation }) => {
     <View style={styles.containerStyle}>
       <Text style={styles.titleStyle}>{title}</Text>
       <Text style={styles.contentStyle}>{content}</Text>
-      <Button
-        title="Edit"
-        onPress={() => navigation.navigate("Edit", { id, title, content })}
-      />
     </View>
   );
+};
+
+ShowScreen.navigationOptions = ({ navigation }) => {
+  const id = navigation.getParam("id");
+
+  return {
+    headerRight: () => (
+      <TouchableOpacity onPress={() => navigation.navigate("Edit", { id })}>
+        <Feather style={styles.headerIconStyle} name="edit-2" size={25} />
+      </TouchableOpacity>
+    ),
+  };
 };
 
 const styles = StyleSheet.create({
@@ -34,6 +43,9 @@ const styles = StyleSheet.create({
   contentStyle: {
     marginTop: 12,
     fontSize: 16,
+  },
+  headerIconStyle: {
+    marginRight: 12,
   },
 });
 
