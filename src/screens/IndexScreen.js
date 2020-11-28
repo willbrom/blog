@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import {
   View,
   Text,
-  Button,
   FlatList,
   StyleSheet,
   TouchableOpacity,
