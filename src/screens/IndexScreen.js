@@ -27,12 +27,9 @@ const IndexScreen = ({ navigation }) => {
               }
             >
               <Text style={styles.titleStyle}>{title}</Text>
-              <Feather
-                style={styles.iconStyle}
-                name="trash"
-                size={25}
-                onPress={() => deleteBlogPost(id)}
-              />
+              <TouchableOpacity onPress={() => deleteBlogPost(id)}>
+                <Feather style={styles.iconStyle} name="trash" size={25} />
+              </TouchableOpacity>
             </TouchableOpacity>
           );
         }}
