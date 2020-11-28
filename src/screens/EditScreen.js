@@ -1,13 +1,19 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { View, Button, StyleSheet } from "react-native";
 import BlogInput from "../components/BlogInput";
 import { Context as BlogContext } from "../context/BlogContext";
 
 const EditScreen = ({ navigation }) => {
-  const [title, setTitle] = useState(navigation.getParam("title"));
-  const [content, setContent] = useState(navigation.getParam("content"));
-  const { editBlogPost } = useContext(BlogContext);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const { state, editBlogPost } = useContext(BlogContext);
   const id = navigation.getParam("id");
+
+  useEffect(() => {
+    const BlogPost = state.find((v) => v.id === id);
+    setTitle(BlogPost.title);
+    setContent(BlogPost.content);
+  }, []);
 
   return (
     <View style={styles.containerStyle}>
