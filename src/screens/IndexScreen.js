@@ -37,9 +37,18 @@ const IndexScreen = ({ navigation }) => {
           );
         }}
       />
-      <Button title="Add Blog" onPress={() => navigation.navigate("Create")} />
     </View>
   );
+};
+
+IndexScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerRight: () => (
+      <TouchableOpacity onPress={() => navigation.navigate("Create")}>
+        <Feather style={styles.iconStyle} name="plus" size={30} />
+      </TouchableOpacity>
+    ),
+  };
 };
 
 const styles = StyleSheet.create({
