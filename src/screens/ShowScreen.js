@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { Context as BlogContext } from "../context/BlogContext";
 
 const ShowScreen = ({ navigation }) => {
+  const { state } = useContext(BlogContext);
   const id = navigation.getParam("id");
-  const title = navigation.getParam("title");
-  const content = navigation.getParam("content");
+
+  const { title, content } = state.find((v) => v.id === id);
 
   return (
     <View style={styles.containerStyle}>
