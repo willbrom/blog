@@ -13,9 +13,7 @@ const EditScreen = ({ navigation }) => {
     <BlogPostForm
       initialValue={{ title, content }}
       callback={(title, content) =>
-        editBlogPost({ id, title, content }, () => {
-          navigation.popToTop();
-        })
+        editBlogPost({ id, title, content }, () => navigation.pop())
       }
     />
   );

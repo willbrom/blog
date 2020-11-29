@@ -15,9 +15,7 @@ const CreateScreen = ({ navigation }) => {
             title,
             content,
           },
-          () => {
-            navigation.popToTop();
-          }
+          () => navigation.popToTop()
         )
       }
     />
