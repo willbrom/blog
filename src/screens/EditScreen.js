@@ -22,8 +22,9 @@ const EditScreen = ({ navigation }) => {
       <Button
         title="Save"
         onPress={() => {
-          editBlogPost({ id, title, content });
-          navigation.popToTop();
+          editBlogPost({ id, title, content }, () => {
+            navigation.popToTop();
+          });
         }}
       />
     </View>

@@ -13,14 +13,18 @@ const CreateScreen = ({ navigation }) => {
       <BlogInput title="Title" value={title} setValue={setTitle} />
       <BlogInput title="Content" value={content} setValue={setContent} />
       <Button
-        title="Save"
+        title="Add"
         onPress={() => {
-          addBlogPost({
-            id: state.length.toString(),
-            title,
-            content,
-          });
-          navigation.popToTop();
+          addBlogPost(
+            {
+              id: state.length.toString(),
+              title,
+              content,
+            },
+            () => {
+              navigation.popToTop();
+            }
+          );
         }}
       />
     </View>

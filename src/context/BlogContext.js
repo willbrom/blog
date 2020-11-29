@@ -1,3 +1,4 @@
+import { call } from "react-native-reanimated";
 import createDataContext from "./createDataContext";
 
 const Reducer = (state, action) => {
@@ -14,14 +15,16 @@ const Reducer = (state, action) => {
 };
 
 const addBlogPost = (dispatch) => {
-  return ({ id, title, content }) => {
+  return ({ id, title, content }, callback) => {
     dispatch({ type: "add", payload: { id, title, content } });
+    callback();
   };
 };
 
 const editBlogPost = (dispatch) => {
-  return ({ id, title, content }) => {
+  return ({ id, title, content }, callback) => {
     dispatch({ type: "edit", payload: { id, title, content } });
+    callback();
   };
 };
 
