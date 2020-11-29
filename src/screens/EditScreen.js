@@ -1,40 +1,26 @@
-import React, { useState, useContext, useEffect } from "react";
-import { View, Button, StyleSheet } from "react-native";
-import BlogInput from "../components/BlogInput";
+import React, { useContext } from "react";
+import { StyleSheet } from "react-native";
+import BlogPostForm from "../components/BlogPostForm";
 import { Context as BlogContext } from "../context/BlogContext";
 
 const EditScreen = ({ navigation }) => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
   const { state, editBlogPost } = useContext(BlogContext);
   const id = navigation.getParam("id");
 
-  useEffect(() => {
-    const BlogPost = state.find((v) => v.id === id);
-    setTitle(BlogPost.title);
-    setContent(BlogPost.content);
-  }, []);
+  const { title, content } = state.find((v) => v.id === id);
 
   return (
-    <View style={styles.containerStyle}>
-      <BlogInput title="New Title" value={title} setValue={setTitle} />
-      <BlogInput title="New Content" value={content} setValue={setContent} />
-      <Button
-        title="Save"
-        onPress={() => {
-          editBlogPost({ id, title, content }, () => {
-            navigation.popToTop();
-          });
-        }}
-      />
-    </View>
+    <BlogPostForm
+      initialValue={{ title, content }}
+      callback={(title, content) =>
+        editBlogPost({ id, title, content }, () => {
+          navigation.popToTop();
+        })
+      }
+    />
   );
 };
 
-const styles = StyleSheet.create({
-  containerStyle: {
-    marginTop: 12,
-  },
-});
+const styles = StyleSheet.create({});
 
 export default EditScreen;

@@ -1,40 +1,29 @@
-import React, { useState, useContext } from "react";
-import { View, Button, StyleSheet } from "react-native";
-import BlogInput from "../components/BlogInput";
+import React, { useContext } from "react";
+import { StyleSheet } from "react-native";
 import { Context as BlogContext } from "../context/BlogContext";
+import BlogPostForm from "../components/BlogPostForm";
 
 const CreateScreen = ({ navigation }) => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
   const { state, addBlogPost } = useContext(BlogContext);
 
   return (
-    <View style={styles.containerStyle}>
-      <BlogInput title="Title" value={title} setValue={setTitle} />
-      <BlogInput title="Content" value={content} setValue={setContent} />
-      <Button
-        title="Add"
-        onPress={() => {
-          addBlogPost(
-            {
-              id: state.length.toString(),
-              title,
-              content,
-            },
-            () => {
-              navigation.popToTop();
-            }
-          );
-        }}
-      />
-    </View>
+    <BlogPostForm
+      callback={(title, content) =>
+        addBlogPost(
+          {
+            id: Math.floor(Math.random() * 9999).toString(),
+            title,
+            content,
+          },
+          () => {
+            navigation.popToTop();
+          }
+        )
+      }
+    />
   );
 };
 
-const styles = StyleSheet.create({
-  containerStyle: {
-    marginTop: 12,
-  },
-});
+const styles = StyleSheet.create({});
 
 export default CreateScreen;
