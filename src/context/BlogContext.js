@@ -5,8 +5,6 @@ const Reducer = (state, action) => {
   switch (action.type) {
     case "get":
       return action.payload;
-    case "add":
-      return [...state, action.payload];
     case "edit":
       return state.map((v) => (v.id == action.payload.id ? action.payload : v));
     case "delete":
@@ -19,12 +17,7 @@ const Reducer = (state, action) => {
 const addBlogPost = (dispatch) => {
   return async ({ id, title, content }, callback) => {
     try {
-      const response = await jsonServer.post("/blogposts", {
-        id,
-        title,
-        content,
-      });
-      dispatch({ type: "add", payload: response.data });
+      await jsonServer.post("/blogposts", { title, content });
     } catch (e) {
       console.log(e);
     }
@@ -33,15 +26,25 @@ const addBlogPost = (dispatch) => {
 };
 
 const editBlogPost = (dispatch) => {
-  return ({ id, title, content }, callback) => {
-    dispatch({ type: "edit", payload: { id, title, content } });
+  return async ({ id, title, content }, callback) => {
+    try {
+      await jsonServer.put(`/blogposts/${id}`, { title, content });
+      dispatch({ type: "edit", payload: { id, title, content } });
+    } catch (e) {
+      console.log(e);
+    }
     callback();
   };
 };
 
 const deleteBlogPost = (dispatch) => {
-  return (id) => {
-    dispatch({ type: "delete", payload: { id } });
+  return async (id) => {
+    try {
+      await jsonServer.delete(`/blogposts/${id}`);
+      dispatch({ type: "delete", payload: { id } });
+    } catch (e) {
+      console.log(e);
+    }
   };
 };
 
