@@ -1,8 +1,10 @@
-import { call } from "react-native-reanimated";
 import createDataContext from "./createDataContext";
+import jsonServer from "../api/jsonServer";
 
 const Reducer = (state, action) => {
   switch (action.type) {
+    case "get":
+      return action.payload;
     case "add":
       return state.concat(action.payload);
     case "edit":
@@ -34,8 +36,19 @@ const deleteBlogPost = (dispatch) => {
   };
 };
 
+const getBlogPosts = (dispatch) => {
+  return async () => {
+    try {
+      const response = await jsonServer.get("/blogposts");
+      dispatch({ type: "get", payload: response.data });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
 export const { Context, Provider } = createDataContext(
   Reducer,
-  { addBlogPost, editBlogPost, deleteBlogPost },
+  { addBlogPost, editBlogPost, deleteBlogPost, getBlogPosts },
   []
 );
