@@ -1,1 +1,1 @@
-A blog app created using react-native
+A blog app that includes crud functionality and uses json-server for backend, created using react-native
