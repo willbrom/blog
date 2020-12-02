@@ -12,7 +12,9 @@ import { Feather } from "@expo/vector-icons";
 const IndexScreen = ({ navigation }) => {
   const { state, deleteBlogPost, getBlogPosts } = useContext(BlogContext);
 
-  getBlogPosts();
+  useEffect(() => {
+    getBlogPosts();
+  }, []);
 
   return (
     <View style={styles.containerStyle}>
@@ -48,7 +50,9 @@ IndexScreen.navigationOptions = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  containerStyle: {},
+  containerStyle: {
+    flex: 1,
+  },
   itemStyle: {
     height: 50,
     marginTop: 4,
