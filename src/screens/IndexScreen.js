@@ -14,12 +14,20 @@ const IndexScreen = ({ navigation }) => {
 
   useEffect(() => {
     getBlogPosts();
+
+    const listener = navigation.addListener("didFocus", () => {
+      getBlogPosts();
+    });
+
+    return () => {
+      listener.remove();
+    };
   }, []);
 
   return (
     <View style={styles.containerStyle}>
       <FlatList
-        keyExtractor={({ id }) => id}
+        keyExtractor={({ id }) => id.toString()}
         data={state}
         renderItem={({ item: { id, title, content } }) => {
           return (
