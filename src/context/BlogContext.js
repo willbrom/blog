@@ -6,7 +6,7 @@ const Reducer = (state, action) => {
     case "get":
       return action.payload;
     case "add":
-      return state.concat(action.payload);
+      return [...state, action.payload];
     case "edit":
       return state.map((v) => (v.id == action.payload.id ? action.payload : v));
     case "delete":
@@ -17,8 +17,17 @@ const Reducer = (state, action) => {
 };
 
 const addBlogPost = (dispatch) => {
-  return ({ id, title, content }, callback) => {
-    dispatch({ type: "add", payload: { id, title, content } });
+  return async ({ id, title, content }, callback) => {
+    try {
+      const response = await jsonServer.post("/blogposts", {
+        id,
+        title,
+        content,
+      });
+      dispatch({ type: "add", payload: response.data });
+    } catch (e) {
+      console.log(e);
+    }
     callback();
   };
 };
